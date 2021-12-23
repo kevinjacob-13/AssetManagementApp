@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="d-flex justify-content-center flex-row bd-highlight mb-3">
-    <div class="p-2 bd-highlight flex-fill">
+  <div class="row" id="filter">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
       <select class="form-select" aria-label="Manufacturer Select">
         <option selected>All Manufacturers</option>
         <option value="1">One</option>
@@ -8,13 +8,11 @@
       </select>
     </div>
 
-    <div class="p-2 bd-highlight flex-fill">
-      <div class="input-group mb-3"> <input type="text" class="form-control input-text" 
-        placeholder="Asset Name">
-      </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+      <input type="text" class="form-control input-text" placeholder="Asset Name">
     </div>
 
-    <div class="p-2 bd-highlight flex-fill">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
       <select class="form-select" aria-label="Model Select">
         <option selected>All Models</option>
         <option value="1">One</option>
@@ -28,44 +26,54 @@
           <caption>List Of Assets</caption>
           <thead>
             <tr>
-              <th>Test1</th>
-              <th>Test2</th>
-              <th>Test3</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              <th>Asset Name</th>
+              <th>Model</th>
+              <th>Manufacturer</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Color</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td><button class="btn btn-warning">Edit</button></td>
-              <td><button class="btn btn-danger">Delete</button></td>
+              <td>Apple Macbook Pro</td>
+              <td>Laptop</td>
+              <td>Apple</td>
+              <td>The Best Macbook Ever</td>
+              <td>$145000</td>
+              <td>Silver</td>
+              <td>
+                <i class="far fa-edit"></i>
+                <i class="far fa-trash-alt"></i>
+              </td>
             </tr>
           </tbody>
         </table>
     </div>
 </div>
-<nav class="navbar fixed-bottom navbar-expand-sm">
-  <div class="container-fluid">
-    <label for="RowsPerPage">Rows Per Page:</label>
+<nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+  <div class="container">
+    <label>Rows Per Page:</label>
     <select class="form-select" id="RowsPerPage">
       <option value="1">10</option>
       <option value="2">20</option>
     </select>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-end">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
+    <div class="row-counter">
+      <b>
+        <span>1</span> - <span>10</span> of <span>158</span>
+      </b>
+    </div>
+    <div class="pagination-controller">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </nav>

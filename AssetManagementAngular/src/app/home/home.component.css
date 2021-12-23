@@ -1,1 +1,40 @@
-#RowsPerPage{width: 70px;}
+#RowsPerPage{
+    width: 70px;
+    margin-left: -20%;
+}
+label{
+    width: 10%;
+    overflow: hidden;
+}
+
+.row-counter{
+    min-width: 100px;
+    
+}
+
+.pagination-controller{
+    overflow: hidden;
+}
+
+#filter{
+    padding:2.5%;
+}
+
+.col-md-4{
+    padding:1%;
+}
+
+.col-sm-6{
+    padding:1%; 
+}
+
+th,td{
+    text-align:left;
+}
+
+.actions{
+    margin: 1%;
+    width: 5em;
+    padding: 2%;
+}
+
