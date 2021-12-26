@@ -1,18 +1,24 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-<div class="container">
-    <header class="d-flex flex-wrap py-3 mb-4 border-bottom">
-      <a routerLink="/" class="d-flex align-items-center
-                               mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <span class="fs-4">Asset Management</span>
-      </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a class="nav-link" routerLink="/">Add Asset</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/">Export</a></li>
-      </ul>
-    </header>
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">Asset Management</a>
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> 
+      </button> -->
+      <div class="">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="add-action nav-link" routerLink="/">Add Asset</a>
+          </li>
+          <li class="nav-item">
+            <a class="export-action nav-link" routerLink="/">Export</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>

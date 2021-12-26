@@ -1,20 +1,63 @@
 #RowsPerPage{
     width: 70px;
-    margin-left: -20%;
+    /* margin: auto; */
 }
-label{
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+/* label{
     width: 10%;
     overflow: hidden;
+} */
+
+@media only screen and (max-width: 768px) {
+    .rows-per-page{
+        width: 20%;
+        margin: auto;
+    }
+
+    .row-counter{
+    width: 120px;
+    }
+    
+    .pagination{
+        margin-left: 26% !important;
+    }
+}
+
+.rows-per-page{
+    width: 30%;
+    margin: auto;
 }
 
 .row-counter{
-    min-width: 100px;
+    width: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     
 }
 
 .pagination-controller{
-    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 
 #filter{
     padding:2.5%;
@@ -38,3 +81,40 @@ th,td{
     padding: 2%;
 }
 
+i{
+    margin-right: 30%;
+}
+
+.action-column{
+    white-space: nowrap; 
+}
+
+.pg-dark{
+    color: black;
+}
+
+.footer-pg{
+    margin-top: 5%;
+}
+
+.edit-action{
+    transition: all 0.5s ease;
+}
+
+.delete-action{
+    transition: all 0.5s ease;
+}
+
+.edit-action:hover{
+    color: dodgerblue;
+    transition: all 0.5s ease;
+}
+.delete-action:hover{
+    color:red;
+    transition: all 0.5s ease;
+}
+
+.pagination{
+    width: 30%;
+    margin: auto;
+}

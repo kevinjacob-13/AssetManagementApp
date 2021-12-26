@@ -1,0 +1,11 @@
+.add-action:hover{
+    color: darkslateblue !important;
+}
+
+.export-action:hover{
+    color: seagreen !important;
+}
+
+ul{
+    min-width: none;
+}

@@ -7,9 +7,14 @@
         <option value="2">Two</option>
       </select>
     </div>
-
+<!-- 
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-      <input type="text" class="form-control input-text" placeholder="Asset Name">
+      <input type="text" class="form-control input-text" placeholder="Asset Name"> <i class="fa fa-search"></i>
+    </div> -->
+
+    <div class="form-group has-search col-xl-4 col-lg-4 col-md-4 col-sm-6">
+      <span class="fa fa-search form-control-feedback"></span>
+      <input type="text" class="form-control" placeholder="Asset Name">
     </div>
 
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
@@ -21,8 +26,8 @@
     </div>
   </div>
 
-    <div class="row">
-        <table class='table table-striped '>
+    <div class="row table-responsive">
+        <table class='table table-hover table-striped caption-top '>
           <caption>List Of Assets</caption>
           <thead>
             <tr>
@@ -43,37 +48,77 @@
               <td>The Best Macbook Ever</td>
               <td>$145000</td>
               <td>Silver</td>
-              <td>
-                <i class="far fa-edit"></i>
-                <i class="far fa-trash-alt"></i>
+              <td class="action-column">
+                <i class="far fa-edit edit-action"></i>
+                <i class="far fa-trash-alt delete-action"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Apple Macbook Pro</td>
+              <td>Laptop</td>
+              <td>Apple</td>
+              <td>The Best Macbook Ever</td>
+              <td>$145000</td>
+              <td>Silver</td>
+              <td class="action-column">
+                <i class="far fa-edit edit-action"></i>
+                <i class="far fa-trash-alt delete-action"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Apple Macbook Pro</td>
+              <td>Laptop</td>
+              <td>Apple</td>
+              <td>The Best Macbook Ever</td>
+              <td>$145000</td>
+              <td>Silver</td>
+              <td class="action-column">
+                <i class="far fa-edit edit-action"></i>
+                <i class="far fa-trash-alt delete-action"></i>
               </td>
             </tr>
           </tbody>
         </table>
     </div>
 </div>
-<nav class="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+
+
+<div class="pt-2 footer-pg">
   <div class="container">
-    <label>Rows Per Page:</label>
-    <select class="form-select" id="RowsPerPage">
-      <option value="1">10</option>
-      <option value="2">20</option>
-    </select>
-    <div class="row-counter">
-      <b>
-        <span>1</span> - <span>10</span> of <span>158</span>
-      </b>
-    </div>
-    <div class="pagination-controller">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-      </nav>
+    <div class="row">
+      <div class="rows-per-page col-lg-5 col-md-5 col-xs-12">
+        <label for="RowsPerPage d-inline-block">Rows :&nbsp;</label>
+        <select class="form-select d-inline-block" id="RowsPerPage">
+          <option value="1">10</option>
+          <option value="2">20</option>
+          <option value="2">50</option>
+        </select>
+      </div>
+      <div class="row-counter col-lg-3 col-md-3 col-xs-12">
+        <p></p>
+        <b>
+          <span>1</span> - <span>10</span> of <span>158</span>
+        </b>
+      </div>
+      <div class="pagination-controller col-lg-4 col-md-4 col-xs-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="pg-dark page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="pg-dark page-link" href="#">1</a></li>
+            <li class="page-item"><a class="pg-dark page-link" href="#">2</a></li>
+            <li class="page-item"><a class="pg-dark page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="pg-dark page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
-</nav>
+  </div>
