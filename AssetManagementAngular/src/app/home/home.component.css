@@ -37,6 +37,12 @@
     .pagination{
         margin-left: 26% !important;
     }
+
+    nav{
+        margin-top: 5%;
+        margin-bottom: 5%;
+
+    }
 }
 
 .rows-per-page{
@@ -98,20 +104,20 @@ i{
 }
 
 .edit-action{
-    transition: all 0.5s ease;
+    transition: all 1s ease;
 }
 
 .delete-action{
-    transition: all 0.5s ease;
+    transition: all 1s ease;
 }
 
 .edit-action:hover{
     color: dodgerblue;
-    transition: all 0.5s ease;
+    transition: all 0.25s ease;
 }
 .delete-action:hover{
     color:red;
-    transition: all 0.5s ease;
+    transition: all 0.25s ease;
 }
 
 .pagination{

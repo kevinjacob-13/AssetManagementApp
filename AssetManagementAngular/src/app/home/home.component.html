@@ -40,38 +40,14 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Apple Macbook Pro</td>
-              <td>Laptop</td>
-              <td>Apple</td>
-              <td>The Best Macbook Ever</td>
-              <td>$145000</td>
-              <td>Silver</td>
-              <td class="action-column">
-                <i class="far fa-edit edit-action"></i>
-                <i class="far fa-trash-alt delete-action"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Apple Macbook Pro</td>
-              <td>Laptop</td>
-              <td>Apple</td>
-              <td>The Best Macbook Ever</td>
-              <td>$145000</td>
-              <td>Silver</td>
-              <td class="action-column">
-                <i class="far fa-edit edit-action"></i>
-                <i class="far fa-trash-alt delete-action"></i>
-              </td>
-            </tr>
-            <tr>
-              <td>Apple Macbook Pro</td>
-              <td>Laptop</td>
-              <td>Apple</td>
-              <td>The Best Macbook Ever</td>
-              <td>$145000</td>
-              <td>Silver</td>
+          <tbody *ngFor="let assets of assetsList;">
+            <tr *ngFor="let repo of assets;">
+              <td>{{repo.name}}</td>
+              <td>{{repo.modelName}}</td>
+              <td>{{repo.manufacturerName}}</td>
+              <td>{{repo.description}}</td>
+              <td>₹{{repo.price}}</td>
+              <td>{{repo.colorName}}</td>
               <td class="action-column">
                 <i class="far fa-edit edit-action"></i>
                 <i class="far fa-trash-alt delete-action"></i>

@@ -62,6 +62,9 @@ namespace AssetManagementApp
 
             app.UseRouting();
 
+            app.UseCors(builder =>
+            builder.WithOrigins("http://localhost:4200/").WithMethods("Get", "Post").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

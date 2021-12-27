@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../services/home.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  assetsList: any = [];
 
-  constructor() { }
+  constructor(private service: HomeService) { }
 
   ngOnInit(): void {
+    this.getAllAssets();
+  }
+
+  getAllAssets() {
+    this.service.getAllAssets().subscribe((response) => {
+      //this.assetsList = []
+      this.assetsList.push(response)
+    });
+    console.log(this.assetsList);
   }
 
 }

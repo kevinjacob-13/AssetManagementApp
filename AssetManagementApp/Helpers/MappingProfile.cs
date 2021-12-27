@@ -15,7 +15,6 @@ namespace AssetManagementApp.Helpers
             CreateMap<Asset, AssetDTO>().ForMember(x => x.ModelName , opt => opt.MapFrom(src => src.Model.Name))
                                         .ForMember(x => x.ColorName, opt => opt.MapFrom(src => src.Color.Name))
                                         .ForMember(x => x.ManufacturerName, opt => opt.MapFrom(src => src.ManuFacturer.Name));
-            CreateMap<AssetDTO, Asset>();
         }
     }
 }
