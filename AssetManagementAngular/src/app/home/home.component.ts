@@ -7,6 +7,7 @@ import { HomeService } from '../services/home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  p: number = 1;
   assetsList: any = [];
 
   constructor(private service: HomeService) { }

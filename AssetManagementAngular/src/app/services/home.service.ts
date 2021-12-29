@@ -16,4 +16,18 @@ export class HomeService {
   getAllAssets(): Observable<any> {
     return this.http.get(this.rootURL + '/asset/');
   }
+  getAssetFilterQuery(recordsPerPage : number,
+                      page : number,
+                      manufacturerId : string,
+                      modelId : string): Observable<any> {
+    return this.http.get(this.rootURL + '/asset/filter?' +
+                          'recordsPerPage='+
+                          recordsPerPage +
+                          '&page=' +
+                          page + 
+                          '&ManuFacturerId=' +
+                          manufacturerId +
+                          '&modelId=' +
+                          modelId)
+  }
 }

@@ -8,6 +8,7 @@ using AssetManagementApp.Models;
 using AssetManagementApp.DTOs;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using AssetManagementApp.Helpers;
 
 namespace AssetManagementApp.Controllers
 {
@@ -42,5 +43,28 @@ namespace AssetManagementApp.Controllers
             mappedAssetList = _mapper.Map<List<AssetDTO>>(allAssetList);
             return mappedAssetList;
         }
+
+        [HttpGet("filter")]
+        public async Task<ActionResult<List<AssetDTO>>> Filter([FromQuery] PaginationDTO pagination)
+        {
+            var queryable = _context.Assets.AsQueryable();
+
+            if (!(pagination.ManuFacturerId.Equals(Guid.Empty)))
+            {
+                queryable = queryable.Where(x => x.ManuFacturerId.Equals(pagination.ManuFacturerId));
+            }
+
+            if (!(pagination.ModelId.Equals(Guid.Empty)))
+            {
+                queryable = queryable.Where(x => x.ModelId.Equals(pagination.ModelId));
+            }
+
+            await HttpContext.InsertPaginationParametersInResponse(queryable,
+                pagination.RecordsPerPage);
+
+            var assets = await queryable.Paginate(pagination).ToListAsync();
+            return _mapper.Map<List<AssetDTO>>(assets);
+        }
+
     }
 }

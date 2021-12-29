@@ -41,7 +41,7 @@
             </tr>
           </thead>
           <tbody *ngFor="let assets of assetsList;">
-            <tr *ngFor="let repo of assets;">
+            <tr *ngFor="let repo of assets | paginate: { itemsPerPage: 1, currentPage: p }">
               <td>{{repo.name}}</td>
               <td>{{repo.modelName}}</td>
               <td>{{repo.manufacturerName}}</td>
@@ -63,7 +63,7 @@
   <div class="container">
     <div class="row">
       <div class="rows-per-page col-lg-5 col-md-5 col-xs-12">
-        <label for="RowsPerPage d-inline-block">Rows :&nbsp;</label>
+        <label for="RowsPerPage d-inline-block">Rows Per Page:&nbsp;</label>
         <select class="form-select d-inline-block" id="RowsPerPage">
           <option value="1">10</option>
           <option value="2">20</option>
@@ -77,7 +77,7 @@
         </b>
       </div>
       <div class="pagination-controller col-lg-4 col-md-4 col-xs-12">
-        <nav aria-label="Page navigation example">
+        <!-- <nav aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item">
               <a class="pg-dark page-link" href="#" aria-label="Previous">
@@ -93,7 +93,8 @@
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> -->                 
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>   
       </div>
     </div>
   </div>
