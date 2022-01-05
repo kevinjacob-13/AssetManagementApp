@@ -2,15 +2,10 @@
   <div class="row" id="filter">
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
       <select class="form-select" aria-label="Manufacturer Select">
-        <option selected>All Manufacturers</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
+        <option selected value = "">All Manufacturers</option>
+        <option *ngFor = "let m of manufacturerList" value={{m.id}}>{{m.name}}</option>
       </select>
     </div>
-<!-- 
-    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-      <input type="text" class="form-control input-text" placeholder="Asset Name"> <i class="fa fa-search"></i>
-    </div> -->
 
     <div class="form-group has-search col-xl-4 col-lg-4 col-md-4 col-sm-6">
       <span class="fa fa-search form-control-feedback"></span>
@@ -19,9 +14,8 @@
 
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
       <select class="form-select" aria-label="Model Select">
-        <option selected>All Models</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
+        <option selected value = "">All Models</option>
+        <option *ngFor = "let m of modelList" value={{m.id}}>{{m.name}}</option>
       </select>
     </div>
   </div>
@@ -40,8 +34,8 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody *ngFor="let assets of assetsList;">
-            <tr *ngFor="let repo of assets | paginate: { itemsPerPage: 1, currentPage: p }">
+          <tbody *ngFor="let repo of assetsList;">
+            <tr>
               <td>{{repo.name}}</td>
               <td>{{repo.modelName}}</td>
               <td>{{repo.manufacturerName}}</td>
@@ -49,7 +43,9 @@
               <td>₹{{repo.price}}</td>
               <td>{{repo.colorName}}</td>
               <td class="action-column">
-                <i class="far fa-edit edit-action"></i>
+                <a data-bs-toggle="modal" data-bs-target="#editModal" (click)="editPopup(repo.id)">
+                  <i class="far fa-edit edit-action"></i>
+                </a>
                 <i class="far fa-trash-alt delete-action"></i>
               </td>
             </tr>
@@ -58,43 +54,58 @@
     </div>
 </div>
 
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Asset</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body"> 
+        <app-add-edit-asset [assetId]="editAssetId" [action]="action" (closePopup)="closePopup()"></app-add-edit-asset>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="pt-2 footer-pg">
   <div class="container">
     <div class="row">
       <div class="rows-per-page col-lg-5 col-md-5 col-xs-12">
         <label for="RowsPerPage d-inline-block">Rows Per Page:&nbsp;</label>
-        <select class="form-select d-inline-block" id="RowsPerPage">
-          <option value="1">10</option>
-          <option value="2">20</option>
-          <option value="2">50</option>
+        <select (change)="rowsPerPageChangeHandler($event)" class="form-select d-inline-block" id="RowsPerPage">
+          <option value="3">3</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
         </select>
       </div>
       <div class="row-counter col-lg-3 col-md-3 col-xs-12">
         <p></p>
         <b>
-          <span>1</span> - <span>10</span> of <span>158</span>
+          <span>{{((pageNo-1) * assetsPerPage) + 1}} 
+          </span> - <span>{{pageNo * assetsPerPage > totalAssetsCount? totalAssetsCount : pageNo * assetsPerPage }}
+          </span> of <span>{{totalAssetsCount}}</span>
         </b>
       </div>
       <div class="pagination-controller col-lg-4 col-md-4 col-xs-12">
-        <!-- <nav aria-label="Page navigation example">
+        <nav *ngIf="assetsList !=[]" aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item">
-              <a class="pg-dark page-link" href="#" aria-label="Previous">
+            <li [ngClass]="pageNo <=1 ? 'page-item disabled':'page-item'">
+              <a (click)="leftArrowClick(pageNo,i)" class="pg-dark page-link" aria-label="Previous">
                 <span aria-hidden="true">&lt;</span>
               </a>
             </li>
-            <li class="page-item"><a class="pg-dark page-link" href="#">1</a></li>
-            <li class="page-item"><a class="pg-dark page-link" href="#">2</a></li>
-            <li class="page-item"><a class="pg-dark page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="pg-dark page-link" href="#" aria-label="Next">
+            <li *ngFor="let page of pageField;let i=index" [ngClass]="page == pageNo ? 'page-item active':'page-item'">
+              <a (click)="showAssetsByPageNumber(page,i)" 
+               class="pg-dark page-link">{{page}}</a>
+            </li>
+            <li [ngClass]="pageNo >= pageField.length ? 'page-item disabled':'page-item'">
+              <a (click)="rightArrowClick(pageNo,i)" class="pg-dark page-link" aria-label="Next">
                 <span aria-hidden="true">&gt;</span>
               </a>
             </li>
           </ul>
-        </nav> -->                 
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>   
+        </nav>                 
       </div>
     </div>
   </div>

@@ -16,18 +16,23 @@ export class HomeService {
   getAllAssets(): Observable<any> {
     return this.http.get(this.rootURL + '/asset/');
   }
-  getAssetFilterQuery(recordsPerPage : number,
-                      page : number,
+  getAllAssetsByFilter(page : number,
+                      recordsPerPage : number,
                       manufacturerId : string,
                       modelId : string): Observable<any> {
     return this.http.get(this.rootURL + '/asset/filter?' +
                           'recordsPerPage='+
                           recordsPerPage +
                           '&page=' +
-                          page + 
-                          '&ManuFacturerId=' +
-                          manufacturerId +
-                          '&modelId=' +
-                          modelId)
+                          page)
+  }
+
+                          // '&ManuFacturerId=' +
+                          // manufacturerId +
+                          // '&modelId=' +
+                          // modelId
+
+  getAllAssetsCount(): Observable<any> {   
+    return this.http.get(this.rootURL + '/asset/getAllAssetsCount');  
   }
 }

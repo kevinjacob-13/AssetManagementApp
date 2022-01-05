@@ -62,9 +62,62 @@ namespace AssetManagementApp.Controllers
             await HttpContext.InsertPaginationParametersInResponse(queryable,
                 pagination.RecordsPerPage);
 
-            var assets = await queryable.Paginate(pagination).ToListAsync();
+            var assets = await queryable.Paginate(pagination)
+                            .Include(x => x.Model)
+                            .Include(x => x.ManuFacturer)
+                            .Include(x => x.Color)
+                            .ToListAsync();
             return _mapper.Map<List<AssetDTO>>(assets);
         }
 
+        [HttpGet("getAllAssetsCount")]
+        public async Task<ActionResult<int>> getAllAssetsCount()
+        {
+            int assetsCount = await _context.Assets.CountAsync();
+            return assetsCount;
+        }
+
+        [HttpGet("{id}", Name = "getAsset")]
+        public async Task<ActionResult<AssetDTO>> Get(Guid id)
+        {
+            var asset = await _context.Assets
+                            .Include(x => x.Model)
+                            .Include(x => x.ManuFacturer)
+                            .Include(x => x.Color)
+                            .FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+            if (asset == null)
+            {
+                return NotFound();
+            }
+
+            return _mapper.Map<AssetDTO>(asset);
+        }
+
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> Put([FromBody] AssetInsertionDTO assetInsertionDTO)
+        {
+            var mappedAsset = new Asset();
+            mappedAsset = _mapper.Map<Asset>(assetInsertionDTO);
+
+            _context.Entry(mappedAsset).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] AssetInsertionDTO assetInsertionDTO)
+        {
+            var mappedAsset = new Asset();
+            mappedAsset = _mapper.Map<Asset>(assetInsertionDTO);
+            Guid id = Guid.NewGuid();
+            mappedAsset.Id = id;
+            _context.Assets.Add(mappedAsset);
+            await _context.SaveChangesAsync();
+
+
+            return Ok();
+        }
     }
 }
