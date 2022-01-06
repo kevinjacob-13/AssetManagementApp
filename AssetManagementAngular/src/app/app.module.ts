@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AssetComponent } from './asset/asset.component';
-import { HeaderComponent } from './header/header.component';
 import { ApiService } from './services/api.service';
 import { HomeService } from './services/home.service';
 import { PaginationService } from './services/pagination.service';
@@ -20,7 +19,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     HomeComponent,
     AssetComponent,
-    HeaderComponent,
     AddEditAssetComponent
   ],
   imports: [

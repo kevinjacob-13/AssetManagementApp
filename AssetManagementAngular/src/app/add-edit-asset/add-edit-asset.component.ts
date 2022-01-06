@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input,Output,EventEmitter, ViewChild } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-add-edit-asset',
@@ -9,8 +11,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 
 export class AddEditAssetComponent implements OnInit {
+  @ViewChild('closebutton') closebutton;
+
   @Input() action:any;
   @Input() assetId:any;
+
+  @Output() someEvent = new EventEmitter<string>();
 
   manufacturerList = [];
   modelList = [];
@@ -19,9 +25,19 @@ export class AddEditAssetComponent implements OnInit {
   errorMessage = '';
   asset:any = {};
 
-  constructor(private service: ApiService) { }
+  currentDate = new Date();
+  msgNameInvalid = ""
+  msgManufacturerInvalid = ""
+  msgModelInvalid = ""
+  msgPriceInvalid = ""
+  msgDateInvalid = ""
+  msgpurchaseDateInvalid = ""
+  isValidated: boolean=false;
+
+  constructor(private service: ApiService,  private router: Router) { }
 
   AddEditForm = new FormGroup({
+    Id: new FormControl('{00000000-0000-0000-0000-000000000000}'),
     Name: new FormControl('',[Validators.required]),
     ManuFacturerId: new FormControl('',[Validators.required]),
     ModelId: new FormControl(''),
@@ -32,21 +48,131 @@ export class AddEditAssetComponent implements OnInit {
     Description: new FormControl('')
   });
 
+  clearValidationMessages () {
+    this.msgNameInvalid = ""
+    this.msgManufacturerInvalid = ""
+    this.msgModelInvalid = ""
+    this.msgPriceInvalid = ""
+    this.msgDateInvalid = ""
+    this.msgpurchaseDateInvalid = ""
+  }
+  
+  validateForm () {
+  this.clearValidationMessages()
+  this.isValidated = false;
+
+  var name = this.AddEditForm.controls["Name"] 
+  var nameErrors = name.errors
+  var manufacturer =this.AddEditForm.controls["ManuFacturerId"]
+  var manufacturerErrors = manufacturer.errors
+  var model = this.AddEditForm.controls["ModelId"] 
+  var modelErrors = model.errors
+  var price = this.AddEditForm.controls["Price"]
+  var purchaseDate = this.AddEditForm.controls["PurchaseDate"]
+  console.log(purchaseDate.value)
+
+  if (price.value < 0)
+    this.AddEditForm.controls["Price"].setErrors({'negativePrice':true})
+  
+  if(purchaseDate.value > (formatDate(new Date(), 'yyyy-MM-dd', 'en')))
+    this.AddEditForm.controls["PurchaseDate"].setErrors({'futureDate':true})
+
+
+  var priceErrors = price.errors
+  var purchaseDateErrors = purchaseDate.errors
+
+  if(nameErrors || manufacturerErrors || modelErrors || priceErrors || purchaseDateErrors)
+  {
+    if( nameErrors && nameErrors["required"]) {
+      this.msgNameInvalid = "Name is required"
+    }
+    if(manufacturerErrors && manufacturerErrors["required"]) {
+      this.msgManufacturerInvalid = "Please select a Manufacturer"
+    }
+    if(modelErrors && modelErrors["required"]) {
+      this.msgModelInvalid = "Please select a Model"
+    }
+    if(purchaseDateErrors && purchaseDateErrors["futureDate"]) {
+      this.msgpurchaseDateInvalid = "Please select a valid date"
+    }
+    if(priceErrors && priceErrors["required"]) {
+      this.msgPriceInvalid = "Price is required"
+    }
+    else if(priceErrors && priceErrors["negativePrice"])
+    {
+      this.msgPriceInvalid = "Price cannot be negative"
+    }
+    else
+    {
+    }
+    return false;
+  }
+  else
+  {
+    this.isValidated = true;
+    this.closebutton.nativeElement.click();
+    return true
+  }
+
+
+  // if( nameErrors) {
+  //   if( nameErrors["required"]) {
+  //     this.msgInvalid = "Name is required"
+  //   }
+  //   return false
+  // }
+  
+  // if( manufacturerErrors) {
+  //   if( manufacturerErrors["required"]) {
+  //     this.msgmanInvalid = "Please select a Manufacturer"
+  //   }
+  //   return false
+  // }
+
+  // return true  
+  }
+
   onSubmit() {
     console.log('submit button clicked');
     console.log(this.AddEditForm.getRawValue());
     console.log(this.action);
+    if(!this.validateForm()) {
+      return
+    }
+
     if(this.action=="ADD")
     {   
        this.service.addAsset(this.AddEditForm.getRawValue())
       .subscribe(
-        data => console.log('Success post data!', data)
+        {
+        next:(data)=> 
+        {
+          this.someEvent.emit();
+          error => console.error('Error!', error);  
+        }   
+        
+        }
+      );
+      this.AddEditForm.reset();
+    }
+    if(this.action=="EDIT")
+    {
+      this.AddEditForm.controls["Id"].setValue(this.assetId)
+
+      this.service.editAsset(this.AddEditForm.getRawValue())
+      .subscribe({
+        next:(data)=> {
+          this.someEvent.emit();
+   
+     }
+       } 
         //error => console.error('Error!', error) // defualt we log error to console
   
         // store error in data member / property to bind to the view
         // error => this.errorMessage = error.statusText
       );
     }
+    
   }
 
   ngOnInit(): void {
@@ -71,7 +197,7 @@ export class AddEditAssetComponent implements OnInit {
         this.getValues();
         
       }
-      console.log("@@@",this.assetId)
+      // console.log("@@@",this.assetId)
 
     }
 
@@ -95,7 +221,8 @@ setFormValues(asset:any) {
   this.AddEditForm.controls["Price"].setValue(asset.price)
   this.AddEditForm.controls["Description"].setValue(asset.description)
   this.AddEditForm.controls["InUse"].setValue(asset.inUse)
-  d = asset.purchaseDate.toString().substring(0,10)
+  if(asset.purchaseDate != null)
+    d = asset.purchaseDate.toString().substring(0,10)
   console.log(d)
   this.AddEditForm.controls["PurchaseDate"].setValue(d)
 }

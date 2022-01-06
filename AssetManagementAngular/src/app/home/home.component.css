@@ -124,3 +124,26 @@ i{
     width: 30%;
     margin: auto;
 }
+
+.add-action{
+    transition: all 1s ease;
+}
+
+.add-action:hover{
+    color: darkslateblue !important;
+    transition: all 0.25s ease;
+}
+
+.export-action{
+    transition: all 1s ease;
+}
+
+.export-action:hover{
+    color: seagreen !important;
+    transition: all 0.25s ease;
+}
+
+ul{
+    min-width: none;
+}
+

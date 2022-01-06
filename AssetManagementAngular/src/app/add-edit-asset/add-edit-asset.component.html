@@ -3,31 +3,46 @@
     <label for="inputAssetName4" class="form-label">Asset Name</label>
     <input type="text" class="form-control" id="name" formControlName="Name" autocomplete="off"  
     [required]="true">
+    <div id="inputAssetName4" class="text-danger">
+      <small>{{msgNameInvalid}}</small>
+    </div>
   </div>
   <div class="col-md-6">
     <label for="inputManufacturer" class="form-label">Manufacturer</label>
-    <select id="inputManufacturer" class="form-select" required formControlName="ManuFacturerId">
+    <select id="inputManufacturer" class="form-select" [required]="true" formControlName="ManuFacturerId">
       <option selected [disabled]="true">Manufacturer</option>
       <option *ngFor = "let m of manufacturerList" value= {{m.id}}>{{m.name}}</option>
     </select>
+    <div id="inputManufacturer" class="text-danger">
+      <small>{{msgManufacturerInvalid}}</small>
+    </div>
   </div>
   <div class="col-md-6">
     <label for="inputModel" class="form-label">Model</label>
-    <select id="inputModel" class="form-select" required 
+    <select id="inputModel" class="form-select" [required]="true"
     formControlName="ModelId">
       <option selected [disabled]="true">Model</option>
       <option *ngFor = "let m of modelList" value= {{m.id}}>{{m.name}}</option>
     </select>
+    <div id="inputModel" class="text-danger">
+      <small>{{msgModelInvalid}}</small>
+    </div>
   </div>
   <div class="col-md-6">
     <label for="purchasedate" class="form-label">Date Of Purchase</label>
     <input type="date" class="form-control" id="purchasedate" 
     formControlName="PurchaseDate">
+    <div id="purchasedate" class="text-danger">
+      <small>{{msgpurchaseDateInvalid}}</small>
+    </div>
   </div>
   <div class="col-md-6">
     <label for="Price" class="form-label">Price</label>
-    <input type="number" class="form-control" id="Price"
+    <input type="number" min="0" class="form-control" id="Price" [required]="true"
     formControlName="Price">
+    <div id="Price" class="text-danger">
+      <small>{{msgPriceInvalid}}</small>
+    </div>
   </div>
   <div class="col-md-6">
     <label for="inputColor" class="form-label">Color</label>
@@ -52,7 +67,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closebutton>Close</button>
+    <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
   </div>
 </form>

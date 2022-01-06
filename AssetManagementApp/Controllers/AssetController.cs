@@ -33,7 +33,6 @@ namespace AssetManagementApp.Controllers
         public async Task<ActionResult<List<AssetDTO>>> Get()
         {
             var allAssetList = await _context.Assets
-                            .Take(10)
                             .Include(x => x.Model)
                             .Include(x => x.ManuFacturer)
                             .Include(x => x.Color)
@@ -109,15 +108,21 @@ namespace AssetManagementApp.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] AssetInsertionDTO assetInsertionDTO)
         {
-            var mappedAsset = new Asset();
-            mappedAsset = _mapper.Map<Asset>(assetInsertionDTO);
-            Guid id = Guid.NewGuid();
-            mappedAsset.Id = id;
-            _context.Assets.Add(mappedAsset);
-            await _context.SaveChangesAsync();
-
-
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                var mappedAsset = new Asset();
+                mappedAsset = _mapper.Map<Asset>(assetInsertionDTO);
+                Guid id = Guid.NewGuid();
+                mappedAsset.Id = id;
+                _context.Assets.Add(mappedAsset);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                ModelState.AddModelError("ErrorMessage", "Check the errors");
+                return Forbid();
+            }
         }
     }
 }

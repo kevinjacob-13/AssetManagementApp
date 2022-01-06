@@ -1,3 +1,34 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <nav class="navbar navbar-expand navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">Asset Management</a>
+      <div class="navbar-items">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="add-action nav-link" routerLink="" data-bs-toggle="modal" data-bs-target="#exampleModalAdd">Add Asset</a>
+          </li>
+          <li class="nav-item">
+            <a class="export-action nav-link" routerLink="" (click)="exportToSheet()">Export</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="modal fade" id="exampleModalAdd" tabindex="-1" aria-labelledby="exampleModalLabelAdd" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabelAdd">New Asset</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <app-add-edit-asset [action]="action" (someEvent)="getAllAssets()" (click)="openPopup()"></app-add-edit-asset>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 <div class="container">
   <div class="row" id="filter">
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
@@ -54,15 +85,15 @@
     </div>
 </div>
 
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabelEdit" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Asset</h5>
+        <h5 class="modal-title" id="exampleModalLabelEdit">Edit Asset</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body"> 
-        <app-add-edit-asset [assetId]="editAssetId" [action]="action" (closePopup)="closePopup()"></app-add-edit-asset>
+        <app-add-edit-asset [assetId]="editAssetId" [action]="action" (someEvent)="getAllAssets()" (closePopup)="closePopup()"></app-add-edit-asset>
       </div>
     </div>
   </div>
@@ -74,9 +105,10 @@
       <div class="rows-per-page col-lg-5 col-md-5 col-xs-12">
         <label for="RowsPerPage d-inline-block">Rows Per Page:&nbsp;</label>
         <select (change)="rowsPerPageChangeHandler($event)" class="form-select d-inline-block" id="RowsPerPage">
-          <option value="3">3</option>
           <option value="5">5</option>
           <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
         </select>
       </div>
       <div class="row-counter col-lg-3 col-md-3 col-xs-12">
