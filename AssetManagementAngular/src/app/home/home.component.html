@@ -32,8 +32,9 @@
 <div class="container">
   <div class="row" id="filter">
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-      <select class="form-select" aria-label="Manufacturer Select">
-        <option selected value = "">All Manufacturers</option>
+      <select class="form-select" aria-label="Manufacturer Select" 
+      [(ngModel)]="selectedManufacturer" (change)="filterChange()">
+        <option [selected] = true value ='{00000000-0000-0000-0000-000000000000}'>All Manufacturers</option>
         <option *ngFor = "let m of manufacturerList" value={{m.id}}>{{m.name}}</option>
       </select>
     </div>
@@ -44,8 +45,9 @@
     </div>
 
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-      <select class="form-select" aria-label="Model Select">
-        <option selected value = "">All Models</option>
+      <select class="form-select" aria-label="Model Select" 
+      [(ngModel)]="selectedModel" (change)="filterChange()">
+        <option [selected] = true value ='{00000000-0000-0000-0000-000000000000}'>All Models</option>
         <option *ngFor = "let m of modelList" value={{m.id}}>{{m.name}}</option>
       </select>
     </div>

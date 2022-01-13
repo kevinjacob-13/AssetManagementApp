@@ -24,15 +24,17 @@ export class HomeService {
                           'recordsPerPage='+
                           recordsPerPage +
                           '&page=' +
-                          page)
-  }
+                          page +
+                          '&manuFacturerId=' +
+                          manufacturerId +
+                          '&modelId=' +
+                          modelId)
+                        }
 
-                          // '&ManuFacturerId=' +
-                          // manufacturerId +
-                          // '&modelId=' +
-                          // modelId
-
-  getAllAssetsCount(): Observable<any> {   
+  getAllAssetsCount(page : number,
+    recordsPerPage : number,
+    manufacturerId : string,
+    modelId : string): Observable<any> {   
     return this.http.get(this.rootURL + '/asset/getAllAssetsCount');  
   }
 }

@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   pageNumber: boolean[] = []; 
   manufacturerList = [];
   modelList = [];
+  selectedManufacturer : string = '{00000000-0000-0000-0000-000000000000}';
+  selectedModel : string = '{00000000-0000-0000-0000-000000000000}';
 
   ActivateAddEditComp: boolean=false;
   asset:any;
@@ -44,6 +46,9 @@ export class HomeComponent implements OnInit {
     console.log(this.assetsPerPage);
   }
 
+  filterChange(){
+    this.getAllAssets();
+  }
 
   exportToSheet() {
     this.getCompleteAssets();
@@ -152,7 +157,7 @@ export class HomeComponent implements OnInit {
 
   getAllAssets() {
     this.service.getAllAssetsByFilter
-    (this.pageNo, this.assetsPerPage, '', '').subscribe((data: any) => {  
+    (this.pageNo, this.assetsPerPage, this.selectedManufacturer , this.selectedModel).subscribe((data: any) => {  
       this.assetsList = data;  
       this.getAllAssetsCount();  
     })  
@@ -211,7 +216,7 @@ export class HomeComponent implements OnInit {
   } 
   
   getAllAssetsCount() {  
-    this.service.getAllAssetsCount().subscribe((res: any) => {  
+    this.service.getAllAssetsCount(this.pageNo, this.assetsPerPage, this.selectedManufacturer , this.selectedModel).subscribe((res: any) => {  
       this.totalAssetsCount = res;  
       this.totalNoOfPages();  
     })  

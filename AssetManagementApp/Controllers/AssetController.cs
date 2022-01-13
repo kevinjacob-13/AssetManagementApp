@@ -69,12 +69,23 @@ namespace AssetManagementApp.Controllers
             return _mapper.Map<List<AssetDTO>>(assets);
         }
 
-        [HttpGet("getAllAssetsCount")]
-        public async Task<ActionResult<int>> getAllAssetsCount()
-        {
-            int assetsCount = await _context.Assets.CountAsync();
-            return assetsCount;
-        }
+        //[HttpGet("getAllAssetsCount")]
+        //public async Task<ActionResult<int>> getAllAssetsCount([FromQuery] PaginationDTO pagination)
+        //{
+        //    var queryable = _context.Assets.AsQueryable();
+
+        //    if (!(pagination.ManuFacturerId.Equals(Guid.Empty)))
+        //    {
+        //        queryable = queryable.Where(x => x.ManuFacturerId.Equals(pagination.ManuFacturerId));
+        //    }
+
+        //    if (!(pagination.ModelId.Equals(Guid.Empty)))
+        //    {
+        //        queryable = queryable.Where(x => x.ModelId.Equals(pagination.ModelId));
+        //    }
+        //    int assetsCount = await _context.Assets.CountAsync();
+        //    return assetsCount;
+        //}
 
         [HttpGet("{id}", Name = "getAsset")]
         public async Task<ActionResult<AssetDTO>> Get(Guid id)
